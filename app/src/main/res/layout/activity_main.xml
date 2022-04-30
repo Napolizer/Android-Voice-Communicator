@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/TableLayout"
+                android:layout_width="409dp"
+                android:layout_height="483dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/TextYourIPAddressLabel"
+                        android:layout_width="198dp"
+                        android:layout_height="120dp"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:inputType="none"
+                        android:scrollbarSize="4dp"
+                        android:singleLine="true"
+                        android:text="@string/TextYoutIpAddress"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textSize="20sp"
+                        android:typeface="sans" />
+
+                    <EditText
+                        android:id="@+id/TextYourIPAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:inputType="none"
+                        android:singleLine="true"
+                        android:text="IP"
+                        android:textSize="18sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/TextYourPortNumberLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:selectAllOnFocus="false"
+                        android:text="@string/TextYourPortNumberLabel"
+                        android:textColor="@color/black"
+                        android:textIsSelectable="false"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/TextYourPortNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:selectAllOnFocus="false"
+                        android:singleLine="true"
+                        android:text="Port"
+                        android:textColor="@color/black"
+                        android:textIsSelectable="false"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/TextExternalIpAddressLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/TextExternalIpAddressLabel"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/EditTextExternalIpAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="textPersonName" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/TextExternalPortNumberLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/TextExternalPortNumberLabel"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/EditTextExternalPortNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="textPersonName" />
+                </TableRow>
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/ButtonStartCall"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="beginCall"
+                android:text="@string/ButtonStartCall" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
