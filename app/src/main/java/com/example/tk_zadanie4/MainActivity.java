@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.text.format.Formatter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,11 +39,25 @@ public class MainActivity extends AppCompatActivity {
     private Button startCall;
     private EditText externalIpAddress;
     private EditText externalPortNumber;
+    private SeekBar seekBarSampleRate;
 
     private Context context;
     private WifiManager wifiManager;
 
     private DatagramSocket server;
+
+    private final int[] sampleRates = {
+            2000,
+            5000,
+            11000,
+            22000,
+            44100,
+            48000,
+            96000,
+            192000,
+            320000,
+            640000
+    };
 
     protected void initComponents() {
         layout = findViewById(R.id.Layout);
@@ -51,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         startCall = findViewById(R.id.ButtonStartCall);
         externalIpAddress = findViewById(R.id.EditTextExternalIpAddress);
         externalPortNumber = findViewById(R.id.EditTextExternalPortNumber);
+        seekBarSampleRate = findViewById(R.id.SeekBarSampleRate);
 
         context = getApplicationContext();
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -157,6 +174,23 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 call.startCall();
+            }
+        });
+
+        seekBarSampleRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            private Toast message;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+            @Override public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {
+                if (message != null) {
+                    message.cancel();
+                }
+                message = Toast.makeText(MainActivity.this, String.valueOf(sampleRates[seekBar.getProgress()]), Toast.LENGTH_SHORT);
+                message.show();
             }
         });
     }

@@ -19,17 +19,21 @@
 
             <TableLayout
                 android:id="@+id/TableLayout"
-                android:layout_width="409dp"
-                android:layout_height="483dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp">
 
                     <EditText
                         android:id="@+id/TextYourIPAddressLabel"
-                        android:layout_width="198dp"
-                        android:layout_height="120dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:clickable="false"
                         android:editable="false"
                         android:ems="10"
@@ -46,7 +50,8 @@
                     <EditText
                         android:id="@+id/TextYourIPAddress"
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:clickable="false"
                         android:editable="false"
                         android:ems="10"
@@ -61,12 +66,14 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp">
 
                     <TextView
                         android:id="@+id/TextYourPortNumberLabel"
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:focusable="false"
                         android:gravity="center"
                         android:selectAllOnFocus="false"
@@ -78,7 +85,8 @@
                     <TextView
                         android:id="@+id/TextYourPortNumber"
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:focusable="false"
                         android:gravity="center"
                         android:selectAllOnFocus="false"
@@ -91,12 +99,14 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp">
 
                     <TextView
                         android:id="@+id/TextExternalIpAddressLabel"
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:clickable="false"
                         android:gravity="center"
                         android:singleLine="true"
@@ -107,7 +117,8 @@
                     <EditText
                         android:id="@+id/EditTextExternalIpAddress"
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="textPersonName" />
@@ -116,12 +127,14 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp">
 
                     <TextView
                         android:id="@+id/TextExternalPortNumberLabel"
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:clickable="false"
                         android:gravity="center"
                         android:singleLine="true"
@@ -132,29 +145,112 @@
                     <EditText
                         android:id="@+id/EditTextExternalPortNumber"
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:ems="10"
                         android:gravity="center"
                         android:inputType="textPersonName" />
                 </TableRow>
 
-            </TableLayout>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/ButtonStartCall"
-                android:layout_width="144dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:onClick="beginCall"
-                android:text="@string/ButtonStartCall" />
+                    <Button
+                        android:id="@+id/ButtonStartCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="30dp"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:gravity="center"
+                        android:text="@string/ButtonStartCall" />
+
+                    <Button
+                        android:id="@+id/ButtonEndCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="30dp"
+                        android:editable="false"
+                        android:text="@string/ButtonEndCall" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/TextViewConnectionStatusLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:editable="false"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:selectAllOnFocus="false"
+                        android:text="@string/TextViewConnectionStatus"
+                        android:textColor="@color/black"
+                        android:textIsSelectable="false"
+                        android:textSize="24sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/TextViewConnectionStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:layout_weight="2"
+                        android:editable="false"
+                        android:gravity="center"
+                        android:selectAllOnFocus="false"
+                        android:shadowColor="#FFFFFF"
+                        android:text="Disconnected"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/TextViewSampleRateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="@string/TextViewSampleRateLabel"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <SeekBar
+                        android:id="@+id/SeekBarSampleRate"
+                        style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_weight="2"
+                        android:max="9"
+                        android:progress="5" />
+                </TableRow>
+
+            </TableLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
