@@ -9,4 +9,5 @@
     <string name="ButtonEndCall">End Call</string>
     <string name="TextViewConnectionStatus">Connection Status:</string>
     <string name="TextViewSampleRateLabel">Sample Rate:</string>
+    <string name="TextViewSampleIntervalLabel">Quantization Level:</string>
 </resources>

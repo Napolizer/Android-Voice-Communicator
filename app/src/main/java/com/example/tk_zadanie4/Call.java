@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 public class Call {
@@ -26,6 +27,8 @@ public class Call {
     private int sampleRate;
     private int sampleInterval;
     private int sampleSize;
+
+    private int encodingId;
 
     private boolean microphoneRunning;
     private boolean speakersRunning;
@@ -42,6 +45,23 @@ public class Call {
         this.sampleRate = sampleRate;
         this.sampleInterval = sampleInterval;
         this.sampleSize = sampleSize;
+
+        switch(sampleSize) {
+            case 1:
+                encodingId = AudioFormat.ENCODING_PCM_8BIT;
+                break;
+            case 2:
+                encodingId = AudioFormat.ENCODING_PCM_16BIT;
+                break;
+            case 3:
+                encodingId = AudioFormat.ENCODING_PCM_24BIT_PACKED;
+                break;
+            case 4:
+                encodingId = AudioFormat.ENCODING_PCM_32BIT;
+                break;
+            default:
+                throw new RuntimeException("Nieprawidlowy bitrate: " + (sampleSize * 8));
+        }
     }
 
     public static Builder getBuilder() {
@@ -58,20 +78,18 @@ public class Call {
 
         public int sampleRate;
         public int sampleInterval;
-        public int sampleSize;
+        public int sampleLevel;
 
         private Builder() {
 
         }
 
         public Call build() throws UnknownHostException {
-            return new Call(parentActivity, externalIpAddress, externalPortNumber, server, sampleRate, sampleInterval, sampleSize);
+            return new Call(parentActivity, externalIpAddress, externalPortNumber, server, sampleRate, sampleInterval, sampleLevel / 8);
         }
     }
 
     public void startCall() {
-        endCall();
-
         turnOnMicrophone();
         turnOnSpeakers();
     }
@@ -124,8 +142,8 @@ public class Call {
                     AudioRecord microphone = new AudioRecord(
                             MediaRecorder.AudioSource.VOICE_COMMUNICATION,
                             sampleRate, AudioFormat.CHANNEL_IN_MONO,
-                            AudioFormat.ENCODING_PCM_16BIT, AudioRecord.getMinBufferSize(
-                            sampleRate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT)*10);
+                            encodingId, AudioRecord.getMinBufferSize(
+                            sampleRate, AudioFormat.CHANNEL_IN_MONO, encodingId)*10);
 
                     final int bufferSize = sampleInterval * sampleInterval * sampleSize * 2;
                     byte[] buffer = new byte[bufferSize];
@@ -156,8 +174,6 @@ public class Call {
                 ActivityCompat.requestPermissions(parentActivity, new String[]{Manifest.permission.RECORD_AUDIO}, 0);
                 startRecording();
             }
-        } else {
-            throw new UnsupportedOperationException();
         }
     }
 
@@ -169,17 +185,20 @@ public class Call {
                 byte[] buffer = new byte[bufferSize];
 
                 AudioTrack audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
-                        AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
+                        AudioFormat.CHANNEL_OUT_MONO, encodingId, bufferSize, AudioTrack.MODE_STREAM);
                 audio.play();
                 try {
+                    server.setSoTimeout(500);
                     while (speakersRunning) {
                         DatagramPacket packet = new DatagramPacket(buffer, bufferSize);
-                        server.receive(packet);
-                        audio.write(packet.getData(), 0, bufferSize);
+                        try {
+                            server.receive(packet);
+                            audio.write(packet.getData(), 0, bufferSize);
+                        } catch (SocketTimeoutException e) {
+                            System.out.println(e.getLocalizedMessage());
+                        }
                     }
 
-                    server.disconnect();
-                    server.close();
                     audio.stop();
                     audio.flush();
                     audio.release();
@@ -190,8 +209,6 @@ public class Call {
             });
 
             speakersThread.start();
-        } else {
-            throw new UnsupportedOperationException();
         }
     }
 }

@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,27 +36,22 @@ public class MainActivity extends AppCompatActivity {
     private EditText textYourIPAddress;
     private TextView textYourPortNumber;
     private Button startCall;
+    private Button endCall;
     private EditText externalIpAddress;
     private EditText externalPortNumber;
+    private TextView sampleRate;
     private SeekBar seekBarSampleRate;
+    private TextView sampleLevel;
+    private SeekBar seekBarSampleLevel;
 
     private Context context;
     private WifiManager wifiManager;
 
     private DatagramSocket server;
+    private Call call;
 
-    private final int[] sampleRates = {
-            2000,
-            5000,
-            11000,
-            22000,
-            44100,
-            48000,
-            96000,
-            192000,
-            320000,
-            640000
-    };
+    private SampleRateListener sampleRateListener;
+    private SampleLevelListener sampleLevelListener;
 
     protected void initComponents() {
         layout = findViewById(R.id.Layout);
@@ -65,9 +59,13 @@ public class MainActivity extends AppCompatActivity {
         textYourIPAddress = findViewById(R.id.TextYourIPAddress);
         textYourPortNumber = findViewById(R.id.TextYourPortNumber);
         startCall = findViewById(R.id.ButtonStartCall);
+        endCall = findViewById(R.id.ButtonEndCall);
         externalIpAddress = findViewById(R.id.EditTextExternalIpAddress);
         externalPortNumber = findViewById(R.id.EditTextExternalPortNumber);
+        sampleRate = findViewById(R.id.TextViewSampleRate);
         seekBarSampleRate = findViewById(R.id.SeekBarSampleRate);
+        sampleLevel = findViewById(R.id.TextViewSampleLevel);
+        seekBarSampleLevel = findViewById(R.id.SeekBarSampleInterval);
 
         context = getApplicationContext();
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -77,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        sampleRateListener = new SampleRateListener(sampleRate);
+        sampleLevelListener = new SampleLevelListener(sampleLevel);
+
+        seekBarSampleRate.setOnSeekBarChangeListener(sampleRateListener);
+        seekBarSampleLevel.setOnSeekBarChangeListener(sampleLevelListener);
+        sampleRate.setText(sampleRateListener.getSampleRateFormatted(seekBarSampleRate.getProgress()));
     }
 
     protected MainActivity getMainActivity() {
@@ -155,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
         textYourPortNumber.setText(getPortNumber());
 
         startCall.setOnClickListener(view -> {
+            if (call != null) {
+                call.endCall();
+            }
             if (validateUserInput()) {
                 Call.Builder builder = Call.getBuilder();
 
@@ -162,11 +170,10 @@ public class MainActivity extends AppCompatActivity {
                 builder.externalIpAddress = externalIpAddress.getText().toString();
                 builder.externalPortNumber = Integer.parseInt(externalPortNumber.getText().toString());
                 builder.server = server;
-                builder.sampleRate = 8000;
+                builder.sampleRate = sampleRateListener.getSampleRate(seekBarSampleRate.getProgress());
                 builder.sampleInterval = 20;
-                builder.sampleSize = 2;
+                builder.sampleLevel = sampleLevelListener.getSampleLevel(seekBarSampleLevel.getProgress());
 
-                Call call;
                 try {
                     call = builder.build();
                 } catch (UnknownHostException e) {
@@ -176,21 +183,9 @@ public class MainActivity extends AppCompatActivity {
                 call.startCall();
             }
         });
-
-        seekBarSampleRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            private Toast message;
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-            @Override public void onStartTrackingTouch(SeekBar seekBar) { }
-            @Override public void onStopTrackingTouch(SeekBar seekBar) {
-                if (message != null) {
-                    message.cancel();
-                }
-                message = Toast.makeText(MainActivity.this, String.valueOf(sampleRates[seekBar.getProgress()]), Toast.LENGTH_SHORT);
-                message.show();
+        endCall.setOnClickListener(view -> {
+            if (call != null) {
+                call.endCall();
             }
         });
     }

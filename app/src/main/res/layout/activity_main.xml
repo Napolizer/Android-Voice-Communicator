@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="50dp">
+                android:layout_marginBottom="50dp"
+                android:stretchColumns="1">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -177,7 +178,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/TextViewConnectionStatusLabel"
@@ -197,13 +198,13 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/TextViewConnectionStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
+                        android:layout_margin="5dp"
                         android:layout_weight="2"
                         android:editable="false"
                         android:gravity="center"
@@ -216,23 +217,33 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/TextViewSampleRateLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
                         android:layout_weight="2"
                         android:gravity="center"
                         android:text="@string/TextViewSampleRateLabel"
                         android:textColor="@color/black"
                         android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/TextViewSampleRate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="48kHz"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <SeekBar
                         android:id="@+id/SeekBarSampleRate"
@@ -244,8 +255,57 @@
                         android:layout_marginEnd="50dp"
                         android:layout_marginRight="50dp"
                         android:layout_weight="2"
-                        android:max="9"
-                        android:progress="5" />
+                        android:max="6"
+                        android:progress="4" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/TextViewSampleLevelLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:gravity="center"
+                        android:text="@string/TextViewSampleIntervalLabel"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/TextViewSampleLevel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:gravity="center"
+                        android:text="16 bits"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <SeekBar
+                        android:id="@+id/SeekBarSampleInterval"
+                        style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_weight="2"
+                        android:max="3"
+                        android:progress="1" />
                 </TableRow>
 
             </TableLayout>
