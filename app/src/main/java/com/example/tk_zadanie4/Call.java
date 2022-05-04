@@ -53,12 +53,6 @@ public class Call {
             case 2:
                 encodingId = AudioFormat.ENCODING_PCM_16BIT;
                 break;
-            case 3:
-                encodingId = AudioFormat.ENCODING_PCM_24BIT_PACKED;
-                break;
-            case 4:
-                encodingId = AudioFormat.ENCODING_PCM_32BIT;
-                break;
             default:
                 throw new RuntimeException("Nieprawidlowy bitrate: " + (sampleSize * 8));
         }
@@ -157,7 +151,7 @@ public class Call {
                             int bytesRead = microphone.read(buffer, 0, bufferSize);
                             DatagramPacket packet = new DatagramPacket(buffer, bytesRead, externalIpAddress, externalPortNumber);
                             socket.send(packet);
-                            Thread.sleep(sampleInterval, 0);
+                            //Thread.sleep(sampleInterval/1000, sampleInterval%1000);
                         }
 
                         microphone.stop();

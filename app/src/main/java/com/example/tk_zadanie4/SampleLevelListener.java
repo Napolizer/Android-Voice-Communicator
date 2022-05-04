@@ -8,8 +8,6 @@ public class SampleLevelListener implements SeekBar.OnSeekBarChangeListener {
     private static final int[] sampleLevels = {
             8,
             16,
-            24,
-            32
     };
 
     public SampleLevelListener(TextView sampleLevel) {
@@ -18,7 +16,7 @@ public class SampleLevelListener implements SeekBar.OnSeekBarChangeListener {
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        sampleLevel.setText(format(sampleLevels[seekBar.getProgress()]));
+        sampleLevel.setText(getSampleLevelFormatted(seekBar.getProgress()));
     }
 
     @Override

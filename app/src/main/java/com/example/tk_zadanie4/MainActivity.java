@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Button endCall;
     private EditText externalIpAddress;
     private EditText externalPortNumber;
+    private TextView connectionStatus;
     private TextView sampleRate;
     private SeekBar seekBarSampleRate;
     private TextView sampleLevel;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         endCall = findViewById(R.id.ButtonEndCall);
         externalIpAddress = findViewById(R.id.EditTextExternalIpAddress);
         externalPortNumber = findViewById(R.id.EditTextExternalPortNumber);
+        connectionStatus = findViewById(R.id.TextViewConnectionStatus);
         sampleRate = findViewById(R.id.TextViewSampleRate);
         seekBarSampleRate = findViewById(R.id.SeekBarSampleRate);
         sampleLevel = findViewById(R.id.TextViewSampleLevel);
@@ -171,8 +173,10 @@ public class MainActivity extends AppCompatActivity {
                 builder.externalPortNumber = Integer.parseInt(externalPortNumber.getText().toString());
                 builder.server = server;
                 builder.sampleRate = sampleRateListener.getSampleRate(seekBarSampleRate.getProgress());
-                builder.sampleInterval = 20;
+                //builder.sampleInterval = (builder.sampleRate * 1000) / 3600;
+                builder.sampleInterval = 120;
                 builder.sampleLevel = sampleLevelListener.getSampleLevel(seekBarSampleLevel.getProgress());
+
 
                 try {
                     call = builder.build();
@@ -181,11 +185,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 call.startCall();
+                connectionStatus.setText("Connected");
             }
         });
         endCall.setOnClickListener(view -> {
             if (call != null) {
                 call.endCall();
+                connectionStatus.setText("Disconnected");
             }
         });
     }
