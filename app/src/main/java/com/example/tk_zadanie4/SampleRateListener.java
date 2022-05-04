@@ -6,13 +6,12 @@ import android.widget.TextView;
 public class SampleRateListener implements SeekBar.OnSeekBarChangeListener {
     private TextView sampleRate;
     private static final int[] sampleRates = {
-            5000,
             11000,
             22000,
             44100,
             48000,
             96000,
-            192000,
+            192000
     };
 
     public SampleRateListener(TextView sampleRate) {

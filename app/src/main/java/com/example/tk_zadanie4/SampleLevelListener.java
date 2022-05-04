@@ -7,7 +7,7 @@ public class SampleLevelListener implements SeekBar.OnSeekBarChangeListener {
     private TextView sampleLevel;
     private static final int[] sampleLevels = {
             8,
-            16,
+            16
     };
 
     public SampleLevelListener(TextView sampleLevel) {

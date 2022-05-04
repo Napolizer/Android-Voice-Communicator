@@ -191,6 +191,13 @@ public class MainActivity extends AppCompatActivity {
         endCall.setOnClickListener(view -> {
             if (call != null) {
                 call.endCall();
+                try {
+                    createServer();
+                    textYourIPAddress.setText(getIpAddress());
+                    textYourPortNumber.setText(getPortNumber());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 connectionStatus.setText("Disconnected");
             }
         });
